@@ -38,6 +38,10 @@
                             <a class="nav-link" href="/home/news">最新消息</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home/connection">聯絡我們</a>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 產品管理 <span class="caret"></span>
