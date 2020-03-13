@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@
                 </td>
                 <td>{{$item->title}}</td>
                 <td>{{$item->sort}}</td>
-                <td>{{$item->content}}</td>
+                <td>{!! $item->content !!}</td>
                 <td>
                     <a href="/home/news/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
                     {{-- <a href="/home/news/delete/{{$item->id}}"class="btn btn-danger btn-sm">刪除</a> --}}

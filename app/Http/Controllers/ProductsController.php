@@ -2,73 +2,56 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Products;
 use App\ProductTypes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class ProductController extends Controller
+class ProductsController extends Controller
 {
     public function index()
     {
-        $Product = Products::all();
-        return view('Product/index', compact('Product'));
+        $products = Products::all();
+        $types = ProductTypes::all();
+        return view('admin/product/index',compact('products','types'));
     }
 
     public function create()
     {
-        return view('Product/create');
+        $productTypes = ProductTypes::all();
+        return view('admin/product/create',compact('productTypes'));
     }
 
     public function store(Request $request)
     {
-        $Product_data = $request->all();
+        $products_data = $request->all();
+
         //上傳主要圖片
         if($request->hasFile('img')) {
             $file = $request->file('img');
-            $path = $this->fileUpload($file,'news');
-            $Product_data['img'] = $path;
+            $path = $this->fileUpload($file,'products');
+            $products_data['img'] = $path;
         }
 
-    //    $new_news = Products::create($news_data);
-    //    //create 多張圖片
-    //     if($request->hasFile('news_imgs'))
-    //     {
-    //         $files = $request->file('news_imgs');
-    //         foreach ($files as $file) {
-    //             //上傳圖片
-    //             $path = $this->fileUpload($file,'news');
+        Products::create($products_data);
 
-    //             //建立News多張圖片的資料
-    //             $news_imgs = new NewsImgs;
-    //             $news_imgs->news_id = $new_news->id;
-    //             $news_imgs->img = $path;
-    //             $news_imgs->save();
-    //         }
-    //     }
-
-        return redirect('/home/news');
+        return redirect('/home/products');
     }
 
     public function edit($id)
     {
-        // $news = News::where('id','=',$id)->first();
-
-        $news = News::with("news_imgs")->find($id);
-
-        return view('admin/news/edit', compact('news'));
+        $productTypes = ProductTypes::all();
+        $products = Products::find($id);
+        return view('admin/product/edit',compact('productTypes','products'));
     }
 
     public function update(Request $request, $id)
     {
-        // $news = News::find($id);
-        // $news->img = $request->img;
-        // $news->title = $request->title;
-        // $news->content = $request->content;
-        // $news->save();
 
         $request_data = $request->all();
 
-        $item = News::find($id);
+        $item = Products::find($id);
 
         //if有上傳新圖片
         if($request->hasFile('img')){
@@ -78,18 +61,18 @@ class ProductController extends Controller
 
             //上傳新圖片
             $file = $request->file('img');
-            $path = $this->fileUpload($file,'product');
+            $path = $this->fileUpload($file,'products');
             $request_data['img'] = $path;
         }
 
         $item->update($request_data);
 
-        return redirect('/home/news');
+        return redirect('/home/products');
     }
 
     public function delete(Request $request, $id)
     {
-        $item = News::find($id);
+        $item = Products::find($id);
 
         $old_image = $item->img;
         if(file_exists(public_path().$old_image)){
@@ -98,8 +81,10 @@ class ProductController extends Controller
 
         $item->delete();
 
-        return redirect('/home/news');
+        return redirect('/home/products');
     }
+
+
 
 
     private function fileUpload($file,$dir){
@@ -121,20 +106,4 @@ class ProductController extends Controller
         return '/upload/'.$dir.'/'.$filename;
     }
 
-    public function ajax_delete_news_imgs(Request $request)
-    {
-        $newsimgid = $request->newsimgid;
-
-        $item = NewsImgs::find($newsimgid);
-        $old_image = $item->img;
-
-        if(file_exists(public_path().$old_image)){
-            File::delete(public_path().$old_image);
-        }
-
-        $item->delete();
-
-
-        return "delete success";
-    }
 }

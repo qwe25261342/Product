@@ -1,41 +1,53 @@
 @extends('layouts/app')
 
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 @endsection
 
 @section('content')
 <div class="container">
-    <a href="/home/product_type/create" class="btn btn-success">聯絡資訊</a>
+    <a href="/home/products/create" class="btn btn-success">新增產品</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-
-                <th>name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Message</th>
+                <th>type</th>
+                <th>img</th>
+                <th>title</th>
+                <th>sort</th>
+                <th>content</th>
                 <th width="80"></th>
             </tr>
         </thead>
         <tbody>
-
+            @foreach ($products as $item)
             <tr>
-                <td>name</td>
-                <td>Email</td>
-                <td>Phone</td>
-                <td>Message</td>
-                {{-- <td>
+                <td>
+                    @foreach($types as $type)
+
+                    @if($type->id == $item->types_id)
+                        {{$type->types}}
+                    @endif
+
+                    @endforeach
+                </td>
+                <td>
+                    <img width="120" src="{{$item->img}}" alt="">
+                </td>
+                <td>{{$item->title}}</td>
+                <td>{{$item->sort}}</td>
+                <td>{!! $item->content !!}</td>
+                <td>
+                    <a href="/home/products/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
                     <button class="btn btn-danger btn-sm" onclick="show_confirm({{$item->id}})">刪除</button>
 
-                    <form id="delete-form-{{$item->id}}" action="/home/product_type/delete/{{$item->id}}" method="POST"
+                    <form id="delete-form-{{$item->id}}" action="/home/products/delete/{{$item->id}}" method="POST"
                         style="display: none;">
                         @csrf
                     </form>
-                </td> --}}
+                </td>
             </tr>
-
+            @endforeach
         </tbody>
     </table>
 </div>

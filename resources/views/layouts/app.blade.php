@@ -16,8 +16,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @yield('css')
+    
 
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -38,24 +39,19 @@
                             <a class="nav-link" href="/home/news">最新消息</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home/connection">聯絡我們</a>
-                        </li>
-
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 產品管理 <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/home/product_type">
+                                <a class="dropdown-item" href="/home/productType">
                                     產品類型管理
                                 </a>
-                                <a class="dropdown-item" href="/home/product">
+                                <a class="dropdown-item" href="/home/products">
                                     產品管理
                                 </a>
                             </div>
-
                         </li>
 
                     </ul>
@@ -104,8 +100,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-
     @yield('js')
-
 </body>
 </html>

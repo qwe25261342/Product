@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
 {
-    protected $table = 'Product';
+    protected $table = 'products';
 
     protected $fillable = [
-       'img','title', 'content' ,'sort'
+       'types_id' ,'sort', 'img', 'title', 'content'
     ];
 
-
-
+    public function products_types()
+    {
+        return $this->belongsTo('App\ProductTypes', 'types_id');
+    }
 }

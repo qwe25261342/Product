@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductTypes extends Model
 {
-    protected $table = 'Product_type';
+    protected $table = 'product_types';
 
     protected $fillable = [
-       'title','sort'
+       'types' ,'sort'
     ];
 
 }

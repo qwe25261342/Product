@@ -15,13 +15,13 @@ Route::get('/', 'FrontController@index');
 
 Route::get('/news', 'FrontController@news'); //List Page
 Route::get('/news/{id}', 'FrontController@news_detail'); //Content Page
-Route::get('/product', 'FrontController@product');
 
+Route::get('/products', 'FrontController@products'); //List Page
+Route::get('/products/{id}', 'FrontController@products_detail'); //Content Page
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth'],'prefix' => 'home' ], function () {
-
 
     //首頁
     Route::get('/', 'HomeController@index');
@@ -38,34 +38,36 @@ Route::group(['middleware' => ['auth'],'prefix' => 'home' ], function () {
     Route::post('news/delete/{id}', 'NewsController@delete');
 
     Route::post('ajax_delete_news_imgs', 'NewsController@ajax_delete_news_imgs');
+    Route::post('ajax_post_sort', 'NewsController@ajax_post_sort');
+
+
+    Route::post('ajax_upload_img', 'UploadImgController@ajax_upload_img');
+    Route::post('ajax_delete_img', 'UploadImgController@ajax_delete_img');
 
 
     //產品管理
-    Route::get('product', 'ProductController@index');
+    Route::get('products', 'ProductsController@index');
 
-    Route::get('product/create', 'ProductController@create');
-    Route::post('product/store', 'ProductController@store');
+    Route::get('products/create', 'ProductsController@create');
+    Route::post('products/store', 'ProductsController@store');
 
-    Route::get('product/edit/{id}', 'ProductController@edit');
-    Route::post('product/update/{id}', 'ProductController@update');
+    Route::get('products/edit/{id}', 'ProductsController@edit');
+    Route::post('products/update/{id}', 'ProductsController@update');
 
-    Route::post('product/delete/{id}', 'ProductController@delete');
+    Route::post('products/delete/{id}', 'ProductsController@delete');
+
+
 
     //產品類型管理
-    Route::get('product_type', 'ProductTypeController@index');
+    Route::get('productType', 'ProductTypeController@index');
 
-    Route::get('product_type/create', 'ProductTypeController@create');
-    Route::post('product_type/store', 'ProductTypeController@store');
+    Route::get('productType/create', 'ProductTypeController@create');
+    Route::post('productType/store', 'ProductTypeController@store');
 
-    Route::get('product_type/edit/{id}', 'ProductTypeController@edit');
-    Route::post('product_type/update/{id}', 'ProductTypeController@update');
+    Route::get('productType/edit/{id}', 'ProductTypeController@edit');
+    Route::post('productType/update/{id}', 'ProductTypeController@update');
 
-    Route::post('product_type/delete/{id}', 'ProductTypeController@delete');
-
-    //聯絡我們
-    Route::get('connection', 'ConnectionController@index');
+    Route::post('productType/delete/{id}', 'ProductTypeController@delete');
 });
-
-
 
 
