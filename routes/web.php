@@ -19,6 +19,8 @@ Route::get('/news/{id}', 'FrontController@news_detail'); //Content Page
 Route::get('/products', 'FrontController@products'); //List Page
 Route::get('/products/{id}', 'FrontController@products_detail'); //Content Page
 
+Route::get('/ConnectionUs', 'FrontController@ConnectionUs');
+Route::post('ConnectionUs/store', 'FrontController@ConnectionUs_store');
 Auth::routes();
 
 Route::group(['middleware' => ['auth'],'prefix' => 'home' ], function () {
