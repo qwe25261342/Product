@@ -40,7 +40,9 @@ class FrontController extends Controller
         $User_data = $request->all();
 
         ConnectionUs::create($User_data);
+
         Mail::to($request->user())->send(new OrderShipped($order));
+        
         return redirect('/ConnectionUs');
     }
 
